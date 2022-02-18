@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+
+{% block content %}
+{% thumbnail order.image "225x175" as im %}
+    <a href="{{ order.image.url }}">
+        <img src="{{ im.url }}" class="image-detail">
+    </a>
+{% endthumbnail %}
+<h4> Заказ :{{ order.name }} </h4>
+<h4> Цена: {{ order.price }} </h4>
+<h4> Категория: {{ order.category }} </h4>
+<h4> Район: {{ order.district }} </h4>
+<h4> Заказщик: {{ order.requester }} </h4>
+<h3> Описание: {{ order.description }} </h3>
+{% if request.user.requester == order.requester %}
+
+ <a href="{% url 'order_edit' pk=order.pk %}">Отредактировать</a>
+ <br>
+ <a href="{% url 'order_delete' pk=order.pk %}">Удалить</a>
+ <br>
+ <a href="{% url 'publish_off' pk=order.pk %}">Снять с публикации</a>
+ <br>
+ <a href="{% url 'publish_on' pk=order.pk %}">Опубликовать повторно</a>
+{% endif %}
+<br>
+<div class="container ">
+    <h6>Если вас заинтересовало объявление оставьте отклик</h6>
+    <h6>Заказщик получит уведомление</h6>
+<a href="{% url 'response' pk=order.pk %}" class="btn btn-primary active" role="button" >Отклик</a></div>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

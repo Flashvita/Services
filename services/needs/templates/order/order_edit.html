@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Отредактируйте своё объявление</h2>
+ <div class="row">
+        <div class="col-md-6 offset md-3">
+            <h3 class="text-center">Режим редактирования объявления</h3>
+            <hr>
+            <form action="{% url 'order_edit' order.pk %}" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn btn-danger btn-block" value="Сохранить изменения">
+            </form>
+        </div>
+    </div>
+{% endblock content %}

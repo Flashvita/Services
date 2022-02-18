@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+    {% block content %}
+<h4> Категория :{{ category.title }} </h4>
+     {% for order  in orders %}
+
+
+
+                        <div class="row">
+
+                            <h4><a href="{% url 'order_detail' pk=order.pk %}">{{ order.name }} </a></h4>
+                            <p>{{ orders.category }}</p>
+                            <p>Заказщик: {{ order.requester }}</p>
+                            <p>Категория: {{ order.category }}</p>
+                            <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
+                             <p><img src= </p>
+
+                        </div>
+
+     {% endfor %}
+<h4> Категория :{{ category.title }} </h4>
+<h4> Объявления :{{ order.name }} </h4>
+
+
+
+{% endblock content %}

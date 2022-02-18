@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Повторная публикация из архива</h3>
+<hr>
+{% if messages %}
+  <ul class="messages">
+  {% for message in messages %}
+  <li class="{{ message.tags }}">
+  {{ message|safe }}
+  <a href="#" class="close"></a>
+  </li>
+  {% endfor %}
+  </ul>
+{% endif %}
+<hr>
+
+ <div class="row">
+        <div class="col-md-6 offset md-3">A
+
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                <h3>Для того чтобы опубликовать объявление повторно нажмите
+                    <input type="submit" class="btn btn-success btn-block" value="Опубликовать повторно">
+                </h3>
+
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}

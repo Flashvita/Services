@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+    <h1>Поиск заказа</h1>
+
+
+    {% if query %}
+    <h1>По запросу"{{ query }}"</h1>
+        <h3>
+        {% with results.count as total_results %}
+        Найдено {{ total_results }} результат(ов) {{ total_results|pluralize }}
+        {% endwith %}
+        </h3>
+        {% for order in results %}
+        <h4><a href="{{ order.get_absolute_url }}">{{ order.name }}</a></h4>
+        {% empty %}
+        <h3>Объявления по вашему запросу отсутствуют</h3>
+
+        {% endfor %}
+        <p><a href="{% url 'order_search' %}">Искать снова</a></p>
+    {% else %}
+        <form action="{% url 'order_search' %}" method="get">
+            {{ form|crispy }}
+            <input type="submit" value="Поиск">
+        </form>
+    {% endif %}
+
+
+
+{% endblock content %}

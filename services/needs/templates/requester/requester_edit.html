@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Отредактируйте свой профиль</h2>
+     <div class="row">
+            <div class="col-md-6 offset md-3">
+                <hr>
+                <form  method="POST" >
+                    {{ user_form|crispy }}
+                    {{ requester_form|crispy }}
+                    {% csrf_token %}
+
+                    <input type="submit" class="btn btn-success btn-block" value="Сохранить изменения">
+                </form>
+            </div>
+     </div>
+{% endblock content %}

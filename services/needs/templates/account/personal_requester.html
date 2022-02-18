@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Личный кабинет заказщика</h3>
+<hr>
+<h5>Уважаемый {{ request.user.first_name}} добро пожаловать в личный кабинет заказщика</h5>
+
+{% if messages %}
+  <ul class="messages">
+  {% for message in messages %}
+  <li class="{{ message.tags }}">
+  {{ message|safe }}
+  <a href="#" class="close"></a>
+  </li>
+  {% endfor %}
+  </ul>
+{% endif %}
+<hr>
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" href="{% url 'new_order' %}" role="tab" aria-controls="list-home">Добавить заказ</a>
+        <a class="list-group-item list-group-item-action"  href="{% url 'my_orders' %}" role="tab" aria-controls="list-old-orders">Мои заказы</a>
+          <a class="list-group-item list-group-item-action"  href="{% url 'my_archive_orders' %}" role="tab" aria-controls="list-old-orders">Заказы в архиве</a>
+        <a class="list-group-item list-group-item-action"  href="{% url 'requester_detail' requester.pk %}" role="tab" aria-controls="list-messages">Профиль</a>
+        <a class="list-group-item list-group-item-action"  href="{% url 'responses' %}" role="tab" aria-controls="list-messages">Отклики</a>
+        <a class="list-group-item list-group-item-action"  href="#" role="tab" aria-controls="list-messages">Чат</a>
+
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock content %}

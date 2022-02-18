@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block content %}
+<h2>Все выполненые заказы</h2>
+ {% for work in works %}
+    <div class="row">
+
+    <a href="{% url 'personal_works' work.pk %}">{{ work.name }}</a>
+                        {% thumbnail work.image "225x175" as im %}
+                            <a href="{{ work.image.url }}">
+                                <img src="{{ im.url }}" class="image-detail">
+                            </a>
+                        {% endthumbnail %}
+                        <p>Название: {{ work.name }}</p>
+                        <p>Описание: {{ work.description }}</p>
+
+                        <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
+
+
+
+                    </div>
+ {% endfor %}
+ <div class="row">
+        <div class="col-md-6 offset md-3">
+            <h3 class="text-center"></h3>
+            <hr>
+
+        </div>
+    </div>
+{% endblock content %}

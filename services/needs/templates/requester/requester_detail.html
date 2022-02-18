@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block content %}
+{% thumbnail executor.photo.image "100x100" crop="center" as im %}
+<h4> Фото <img src="{{ requester.photo.url }}" width="200" height="300"></h4>
+{% endthumbnail %}
+<h4> Имя :{{ user.first_name }} </h4>
+<h4> Фамилия: {{ user.last_name }} </h4>
+<h4> Номер телефона: {{ user.requester.phone }} </h4>
+<h4> Возраст: {{ user.requester.age }} </h4>
+
+
+<a href="{% url 'requester_edit' requester.pk %}">Отредактировать профиль</a>
+
+
+
+{% endblock content %}

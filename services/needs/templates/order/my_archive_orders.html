@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+
+    <div class="row">
+        <div class="col-md-6 offset md-3">
+            <h3 class="text-center">Объявления в архиве</h3>
+            <hr>
+
+
+            {% for order in my_archive_orders %}
+            <div class="row">
+
+                <h4><a href="{% url 'order_detail' pk=order.pk %}">{{ order.name }} </a></h4>
+                <p>{{ order.category }}</p>
+                <p>{{ order.requester }}</p>
+                 <a href="#">Отредактировать</a>
+                <a href="#">Снять с публикации</a>
+                <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
+                 <p><img src= </p>
+
+            </div>
+            {% endfor %}
+
+
+
+            <form  method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+            </form>
+        </div>
+    </div>
+
+
+{% endblock content %}

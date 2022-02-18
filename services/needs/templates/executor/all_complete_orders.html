@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block content %}
+<h2>Все выполненые заказы</h2>
+ {% for complete_order in complete_orders %}
+    <div class="row">
+                {% if complete_order.executor == request.user.executor %}
+
+                        {% thumbnail complete_order.image "225x175" as im %}
+                            <a href="{{ complete_order.image.url }}">
+                                <img src="{{ im.url }}" class="image-detail">
+                            </a>
+                        {% endthumbnail %}
+                        <p>Название: {{ complete_order.name }}</p>
+                        <p>Описание: {{ complete_order.description }}</p>
+
+                        <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
+                {% endif %}
+
+
+                    </div>
+ {% endfor %}
+ <div class="row">
+        <div class="col-md-6 offset md-3">
+            <h3 class="text-center"></h3>
+            <hr>
+            <a href="{% url 'complete_order' %}">Добавить новый выполненый заказ</a>
+
+        </div>
+    </div>
+{% endblock content %}

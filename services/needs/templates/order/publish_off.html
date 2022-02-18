@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Снять с публикации</h3>
+{% if messages %}
+  <ul class="messages">
+  {% for message in messages %}
+  <li class="{{ message.tags }}">
+  {{ message|safe }}
+  <a href="#" class="close"></a>
+  </li>
+  {% endfor %}
+  </ul>
+{% endif %}
+<hr>
+
+<hr>
+ <div class="row">
+        <div class="col-md-6 offset md-3">
+
+            <hr>
+            <form  method="POST">
+                {% csrf_token %}
+                <h3>Для того чтобы отправить обявление в архив, нажмите
+                    <input type="submit" class="btn btn-danger btn-block" value="Снять с публикации">
+                </h3>
+
+
+            </form>
+        </div>
+    </div>
+
+
+{% endblock content %}

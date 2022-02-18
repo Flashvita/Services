@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% block content %}
+
+
+
+
+    <div class="row">
+        <div class="col-md-6 offset md-3">
+            <h3 class="text-center">Активные объявления</h3>
+            <hr>
+
+            <div class="row">
+                     {% for category in categories %}
+
+                <h6><a href="{% url 'categories_detail' pk=category.pk %}">{{ category.title }}</a></h6>
+
+                {% endfor %}
+            </div>
+                    <br>
+                    {% for order in orders %}
+                    <div class="row">
+
+                        <h4><a href="{% url 'order_detail' pk=order.pk %}">{{ order.name }} </a></h4>
+                        {% thumbnail order.image "225x175" as im %}
+                            <a href="{{ order.image.url }}">
+                                <img src="{{ im.url }}" class="image-detail">
+                            </a>
+                        {% endthumbnail %}
+                        <p>{{ orders.category }}</p>
+                        <p>Заказщик: {{ order.requester }}</p>
+                        <p>Категория: {{ order.category }}</p>
+                        <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
+
+
+                    </div>
+                    {% endfor %}
+                    <div>
+                {% if page.has_previous %}
+                <a href="?page={{ page.previous_page_number }}”>&lt;</a>
+                <a href="?page=1">&laquo; Первая</a>
+
+                <a href="?page={{ page.previous_page_number }}">предыдущая</a>
+                {% endif %}
+                <span class="current">
+                    Страница {{ page.number }} из {{ page.paginator.num_pages }}.
+                </span>
+
+                {% if page.has_next %}
+                    <a href="?page={{ page.next_page_number }}">Следующая</a>
+
+                    <a href="?page={{ page.paginator.num_pages }}">Последняя&raquo;</a>
+                {% endif %}
+            </div>
+
+
+            <form action="{% url 'all_orders' %}" method="POST">
+                {% csrf_token %}
+
+
+            </form>
+        </div>
+    </div>
+
+
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block content %}
+
+
+{% thumbnail executor.photo "200" as im %}
+    <a href="{{ executor.photo.url }}">
+        <img src="{{ im.url }}" class="image-detail">
+    </a>
+{% endthumbnail %}
+<h5> Имя :{{ executor.user.first_name }} </h5>
+<h5> Фамилия: {{ executor.user.last_name }} </h5>
+<h5> Возраст: {{ executor.age }} </h5>
+<h5> Немного о себе:
+    <br>
+    {{ executor.text }} </h5>
+<h5> Категория деятельности: {{ executor.category }} </h5>
+<h5> Районы работы: {{ executor.district }} </h5>
+<h5> Дни работы: {{ executor.days_of_work }} </h5>
+<h5> Время работы: {{ executor.time_work }} </h5>
+<h5> Образование: {{ executor.education }} </h5>
+<br>
+{% if request.user == executor.user %}
+<a href="{% url 'executor_edit' %}">Отредактировать профиль</a>
+
+{% endif %}
+<h4>Примеры моих работ</h4>
+{% for work in works %}
+    <div class="row" style="display: inline-block">
+
+
+
+                        {% thumbnail work.image "225x175" as im %}
+                            <a href="{{ work.image.url }}">
+                                <img src="{{ im.url }}" class="image-detail">
+                            </a>
+                        {% endthumbnail %}
+                        <p>Название: {{ work.name }}</p>
+                        <p>Описание: {{ work.description|truncatechars:40 }}|</p>
+
+
+                        <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
+
+
+
+                    </div>
+ {% endfor %}
+
+
+
+
+
+
+{% endblock content %}

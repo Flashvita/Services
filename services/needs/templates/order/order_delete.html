@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset md-3">
+            <h3 class="text-center">Удаление</h3>
+            <h4> Заказ :{{ order.name }} </h4>
+            <h4> Цена: {{ order.price }} </h4>
+            <h4> Категория: {{ order.category }} </h4>
+            <h4> Район: {{ order.district }} </h4>
+            <h4> Заказщик: {{ order.requester }} </h4>
+            <h3> Описание: {{ order.description }} </h3>
+
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p>Если вы уверены, что хотите удалить своё объявление, нажмите <input type="submit" class="btn btn-success btn-block" value="Удалить"> </p>
+                <p>Если нет, вернитесь назад </p>
+
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
