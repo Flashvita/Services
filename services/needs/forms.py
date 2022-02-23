@@ -137,7 +137,9 @@ class RequesterEditForm(forms.ModelForm):
 
 
 class ResponseForm(forms.ModelForm):
-    text = forms.CharField(max_length=400, label='Напишите своё предложение клиенту', widget=forms.Textarea)
+    text = forms.CharField(max_length=400, label='Напишите своё предложение клиенту',
+                           initial='Я готов выполнить ваш заказ', widget=forms.Textarea)
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -162,7 +164,6 @@ class MyWorksForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
 
     class Meta:
         model = MyOrders

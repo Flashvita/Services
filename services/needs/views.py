@@ -11,6 +11,7 @@ from .forms import NewOrderForm, UserEditForm, ExecutorEditForm, RequesterEditFo
 from django.contrib.postgres.search import SearchVector
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.contrib.postgres.search import TrigramSimilarity
 from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 
@@ -275,8 +276,7 @@ class SearchOrderView(ListView):
         if form.is_valid():
             query = form.cleaned_data['query']
             results = Order.objects.annotate(
-                search=SearchVector('name', 'description'),
-            ).filter(search=query)
+                similarity=TrigramSimilarity('name', query),).filter(similarity__gt=0.3).order_by('-similarity')
         context = {
                     'form': form,
                     'query': query,
@@ -348,10 +348,8 @@ class RegistrationExecutorView(views.View):
     """Регистрация для исполнителя"""
     def get(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
-
         context = {
             'form': form,
-
         }
         return render(request, 'registration/executor.html', context)
 
@@ -377,7 +375,6 @@ class RegistrationExecutorView(views.View):
                              'Вы успешно зарегестрированы!Рекомендуем отредактировать свой профиль,'
                              ' заказщики смотрят анкеты исполнителей')
             return HttpResponseRedirect('/account/personal_executor/')
-
         context = {
             'form': form
         }
@@ -390,11 +387,9 @@ class ExecutorEditView(views.View):
 
         user_form = UserEditForm(instance=request.user)
         executor_form = ExecutorEditForm(instance=request.user.executor)
-
         context = {
             'user_form': user_form,
             'executor_form': executor_form,
-
         }
         return render(request, 'account/executor_edit.html', context)
 
@@ -443,7 +438,7 @@ class LogoutUserView(LogoutView):
 
 
 class ResponseView(views.View):
-    def get(self, request):
+    def get(self, request, pk):
         form = ResponseForm(request.POST or None)
         context = {
             'form': form,
