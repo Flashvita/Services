@@ -1,5 +1,5 @@
 # Services
-This application was created to provide services in Rostov-on-Don (for portfolio)
+This application is a local freelance exchange (for Rostov-on-Don)
 Сервис для решения задач в различныйх сферах(Строительство,грузоперевозки и многое другое).
 Пользователь регистрируется в качестве заказшика или исполнителя.
 У каждого типа пользователя свой личный кабинет.
