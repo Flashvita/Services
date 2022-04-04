@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <h3>Личный кабинет заказщика</h3>
 <hr>
@@ -23,7 +23,6 @@
         <a class="list-group-item list-group-item-action"  href="{% url 'my_orders' %}" role="tab" aria-controls="list-old-orders">Мои заказы</a>
           <a class="list-group-item list-group-item-action"  href="{% url 'my_archive_orders' %}" role="tab" aria-controls="list-old-orders">Заказы в архиве</a>
         <a class="list-group-item list-group-item-action"  href="{% url 'requester_detail' requester.pk %}" role="tab" aria-controls="list-messages">Профиль</a>
-        <a class="list-group-item list-group-item-action"  href="{% url 'responses' %}" role="tab" aria-controls="list-messages">Отклики</a>
         <a class="list-group-item list-group-item-action"  href="#" role="tab" aria-controls="list-messages">Чат</a>
 
       </div>

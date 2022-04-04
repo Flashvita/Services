@@ -21,11 +21,19 @@ class BaseView(views.View):
         return render(request, 'base.html', {})
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(views.View):
     """Подробности объявления"""
-    model = Order
-    template_name = 'order/order_detail.html'
-    context_object_name = 'order'
+    def get(self, request, pk, *args, **kwargs):
+        order = Order.objects.get(pk=pk)
+        responses = ResponseForOrder.objects.filter(order__id=order.id)
+        context = {
+            'order': order,
+            'responses': responses
+        }
+        return render(request, 'order/order_detail.html', context)
+
+
+
 
 
 class AllOrdersView(ListView):
@@ -202,14 +210,8 @@ class MyWorksView(views.View):
         return render(request, 'executor/complete_order.html', context)
 
 
-
-class ExecutorDetailView(DetailView):
+class ExecutorDetailView(views.View):
     """Вся информация об исполнителе"""
-    model = Executor
-    template_name = 'executor/executor_detail.html'
-    context_object_name = 'executor'
-
-
     def get(self, request, pk, *args, **kwargs):
         executor = get_object_or_404(Executor, pk=pk)
         works = MyOrders.objects.filter(executor=executor)
@@ -218,7 +220,6 @@ class ExecutorDetailView(DetailView):
             'works': works
         }
         return render(request, 'executor/executor_detail.html', context )
-
 
 
 class PersonalWorksView(views.View):
@@ -230,6 +231,7 @@ class PersonalWorksView(views.View):
             'works': works
         }
         return render(request, 'executor/personal_works.html', context)
+
 
 class RequesterDetailView(DetailView):
     """Вся информация об заказщике"""
@@ -302,10 +304,9 @@ class LoginView(views.View):
             if user:
                 login(request, user)
                 return HttpResponseRedirect('/')
-            context = {
-                'form': form
-            }
-            return render(request, 'login.html', context)
+
+        context = {'form': form}
+        return render(request, 'login.html', context)
 
 
 class RegistrationRequesterView(views.View):
@@ -497,19 +498,5 @@ class NewOrderView(views.View):
         }
         return render(request, 'order/new_order.html', context)
 
-
-class AllResponseOrderView(ListView):
-    context_object_name = 'responses'
-    model = ResponseForOrder
-    template_name = 'notifications/responses.html'
-
-    def get_queryset(self):
-        return ResponseForOrder.objects.all().order_by('order__name')
-
-
-class ResponseOrderDetailView(DetailView):
-    context_object_name = 'response'
-    model = ResponseForOrder
-    template_name = 'notifications/response_detail.html'
 
 

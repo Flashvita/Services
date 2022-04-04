@@ -86,6 +86,9 @@ class ResponseForOrder(models.Model):
     def __str__(self):
         return self.order.name
 
+    def get_absolute_url(self):
+        return reverse('order_detail', args=[str(self.id)])
+
     class Meta:
         verbose_name = 'Отклик для заказа'
         verbose_name_plural = 'Отклики для заказа'

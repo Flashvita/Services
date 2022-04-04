@@ -4,8 +4,8 @@ from .views import AccountRequesterView, AccountExecutorView, LogoutUserView, Ne
 from .views import AllExecutorView, ExecutorDetailView, MyOrdersView, ExecutorEditView, AllMyWorksView
 from .views import CategoryDetailView, OrderEditView, OrderDeleteView, RequesterDetailView
 from .views import RequesterEditView, OrderRemovePublishView, MyArchiveOrdersView
-from .views import OrderAgainPublishView, ResponseView, AllResponseOrderView
-from .views import ResponseOrderDetailView, SearchOrderView, MyWorksView, PersonalWorksView
+from .views import OrderAgainPublishView, ResponseView
+from .views import SearchOrderView, MyWorksView, PersonalWorksView
 
 
 urlpatterns = [
@@ -33,8 +33,6 @@ urlpatterns = [
     path('requester/<int:pk>/requester_edit/', RequesterEditView.as_view(), name='requester_edit'),
     path('order/<int:pk>/publish_off/', OrderRemovePublishView.as_view(), name='publish_off'),
     path('order/<int:pk>/response/', ResponseView.as_view(), name='response'),
-    path('notifications/responses/', AllResponseOrderView.as_view(), name='responses'),
-    path('notifications/<int:pk>/', ResponseOrderDetailView.as_view(), name='response_detail'),
     path('executor/complete_order/', MyWorksView.as_view(), name='complete_order'),
     path('executor/all_complete_orders/', AllMyWorksView.as_view(), name='all_complete_orders'),
     path('executor/<int:pk>/personal_works/', PersonalWorksView.as_view(), name='personal_works')

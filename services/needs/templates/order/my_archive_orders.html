@@ -16,12 +16,10 @@
             <div class="row">
 
                 <h4><a href="{% url 'order_detail' pk=order.pk %}">{{ order.name }} </a></h4>
-                <p>{{ order.category }}</p>
-                <p>{{ order.requester }}</p>
-                 <a href="#">Отредактировать</a>
-                <a href="#">Снять с публикации</a>
+                <p>{{ order.description }}</p>
+                <a class="btn btn-primary" href="{% url 'publish_on' order.pk %}" role="button">Опубликовать</a>
                 <p>{{ order.publish|date:"d.m.Y H:i:s" }}</p>
-                 <p><img src= </p>
+
 
             </div>
             {% endfor %}

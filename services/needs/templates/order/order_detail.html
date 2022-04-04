@@ -3,34 +3,54 @@
 {% load thumbnail %}
 
 {% block content %}
-{% thumbnail order.image "225x175" as im %}
-    <a href="{{ order.image.url }}">
-        <img src="{{ im.url }}" class="image-detail">
-    </a>
-{% endthumbnail %}
-<h4> Заказ :{{ order.name }} </h4>
-<h4> Цена: {{ order.price }} </h4>
-<h4> Категория: {{ order.category }} </h4>
-<h4> Район: {{ order.district }} </h4>
-<h4> Заказщик: {{ order.requester }} </h4>
-<h3> Описание: {{ order.description }} </h3>
-{% if request.user.requester == order.requester %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            {% thumbnail order.image "375x175" as im %}
+                <a href="{{ order.image.url }}">
+                    <img src="{{ im.url }}" style="border-radius: 10px; margin-top: 10px;" class="image-detail">
+                </a>
+            {% endthumbnail %}
+        </div>
+        <div class="col-6" style="text-align: center; letter-spacing: 2px;">
+            <h5> Заказ :{{ order.name }} </h5>
+            <h5> Цена: {{ order.price }} </h5>
+            <h5> Категория: {{ order.category }} </h5>
+            <h5> Район: {{ order.district }} </h5>
+            <h5> Заказщик: {{ order.requester }} </h5>
+            <h5> Описание: {{ order.description }} </h5>
+            {% if request.user.requester == order.requester %}
+        </div>
+        <div class="col-3" style="float: left;">
+            <a class="btn btn-primary" href="{% url 'order_edit' order.pk %}" role="button">Отредактировать</a>
+             <br>
+            <a class="btn btn-danger" href="{% url 'order_delete' order.pk %}" role="button">Удалить</a>
+             <br>
+            <a class="btn btn-warning" href="{% url 'publish_off' order.pk %}" role="button">Снять с публикации</a>
+             <br>
+         </div>
+                <div class="alert alert-dark" role="alert">
+                    {% for response in responses %}
+                          <h5>Сообщение: {{ response.text }}</h5>
+                          <h5><a href="{% url 'executor_detail' response.pk %}" class="alert-link">{{ response.sender }}</a></h5>
+                          <h5> {{ response.time }}</h5>
 
- <a href="{% url 'order_edit' pk=order.pk %}">Отредактировать</a>
- <br>
- <a href="{% url 'order_delete' pk=order.pk %}">Удалить</a>
- <br>
- <a href="{% url 'publish_off' pk=order.pk %}">Снять с публикации</a>
- <br>
- <a href="{% url 'publish_on' pk=order.pk %}">Опубликовать повторно</a>
-{% endif %}
-<br>
-<div class="container ">
-    <h6>Если вас заинтересовало объявление оставьте отклик</h6>
-    <h6>Заказщик получит уведомление</h6>
-<a href="{% url 'response' order.pk %}" class="btn btn-primary active" role="button" >Отклик</a></div>
+                    {% endfor %}
+
+                </div>
 
 
+
+            {% endif %}
+            <br>
+            {% if request.user.executor %}
+            <div class="container ">
+                <h6>Если вас заинтересовало объявление оставьте отклик</h6>
+                <h6>Заказщик получит уведомление</h6>
+            <a href="{% url 'response' order.pk %}" class="btn btn-primary active" role="button" >Отклик</a></div>
+            {% endif %}
+    </div>
+</div>
 
 
 
