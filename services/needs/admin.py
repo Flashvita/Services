@@ -30,8 +30,8 @@ class CategorySlug(admin.ModelAdmin):
 
 
 class MyOrderAdmin(admin.ModelAdmin):
-
     list_display = ('name',)
+
 
 
 admin.site.register(MyOrders, MyOrderAdmin)

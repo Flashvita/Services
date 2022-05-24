@@ -132,6 +132,9 @@ class Executor(models.Model):
     def __str__(self):
         return f"{self.user.last_name} {self.user.first_name}"
 
+    def get_absolute_url(self):
+        return reverse('executor_detail', args=[str(self.id)])
+
     class Meta:
         verbose_name = 'Исполитель'
         verbose_name_plural = 'Исполнители'

@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django.contrib.postgres',
     'sorl.thumbnail',
+
 
 
 ]
@@ -138,6 +141,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+#ASGI settings
+ASGI_APPLICATION = 'myservices.asgi.application'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

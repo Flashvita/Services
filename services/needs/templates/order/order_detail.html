@@ -31,10 +31,11 @@
          </div>
                 <div class="alert alert-dark" role="alert">
                     {% for response in responses %}
+                          <h5><a href="{% url 'executor_detail' response.sender.pk %}" class="alert-link">{{ response.sender }}</a></h5>
                           <h5>Сообщение: {{ response.text }}</h5>
-                          <h5><a href="{% url 'executor_detail' response.pk %}" class="alert-link">{{ response.sender }}</a></h5>
                           <h5> {{ response.time }}</h5>
 
+                            <hr>
                     {% endfor %}
 
                 </div>
